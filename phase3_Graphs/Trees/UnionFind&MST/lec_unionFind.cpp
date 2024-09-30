@@ -1,6 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/** Intuition:
+- Finding #CC
+- Finding sizes of merged sets (CC)
+- Maintaining sets / Merging something
+   
+    => Think of Disjoint Set! (Union Find)
+ */
+
 /* UnionFind is goated
  * Idea: Maintaining sets => Union Find
  * We'll be using tree for the task
@@ -10,6 +18,7 @@ using namespace std;
  * 
  * Rank Compression: smaller-to-larger trick
  * by_size is preferred, since size is req in most of the questions
+ * rank[i] = rank (height/size) of set containing node i
  * 
  * Both path and rank compression makes this almost of <=O(6) in CP contest
 */

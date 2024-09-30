@@ -2,6 +2,8 @@
 using namespace std;
 #define ll long long
 
+// We store the count of values in a range. Think how it can be used to find Kth samllest element?
+
 // segment tree that supports insert, remove, findKthSmallest, and findKthLargest
 class orderedSet {
     int maxVal;

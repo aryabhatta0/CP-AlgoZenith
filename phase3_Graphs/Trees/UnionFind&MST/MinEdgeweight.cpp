@@ -8,6 +8,7 @@ using namespace std;
 
 /* Intuition:
  * We need min edge sum for each pair of nodes path
+  (we need sum of minimum edge in the path of each pair of nodes)
 
  * Edge Contribution:
   - edge ke dono end par tab tak ke nodes chahiye jab tak koi currEdge se bada naa aa jaye

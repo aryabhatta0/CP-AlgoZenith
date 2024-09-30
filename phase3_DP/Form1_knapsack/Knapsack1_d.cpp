@@ -14,6 +14,9 @@ using namespace std;
  * ans = dp[0][cap]
 */
 
+// int rec(level, ?)
+// (asked)       (constraints)
+
 /* Deciding states: dp[lev][?]
  * choice: pick/skip
  * if we pick one item, the cap to be taken dec

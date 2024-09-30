@@ -24,6 +24,14 @@ using namespace std;
  * We use recursion to go into child nodes and using the merging idea to do all the 3 tasks.
 */
 
+/** SegTree Framework (3 things):
+    - Node Structure
+    - Merge Logic
+    - Leaf Value
+
+ * check generalized implementation
+ */
+
 // my implementation using class
 class SegmentTree {
 private:

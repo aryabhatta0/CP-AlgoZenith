@@ -1,0 +1,10 @@
+TODO:
+
+- Collisions
+- Diversify Array
+
+- Round and Round
+- Max Area AZ101
+
+- Game on Deque AZ101
+- Set Queries AZ101
