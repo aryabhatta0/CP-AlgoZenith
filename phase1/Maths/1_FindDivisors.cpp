@@ -3,6 +3,21 @@
 #include <cmath>
 using namespace std;
 
+// Func to precompute divisors of all numbers upto N
+// Idea: Loop over all multiples upto N
+// Time Complexity: O(nlogn)
+vector<vector<int>> precomputeDivisors(int N) {
+    vector<vector<int>> divisors(N + 1);
+    for (int i = 1; i <= N; ++i) {
+        // Loop over all multiples of i
+        for (int j = i; j <= N; j += i) {
+            divisors[j].push_back(i);
+        }
+    }
+    return divisors;
+}
+
+
 /** CONCEPT: 
  * Factors exists in pairs with one of them lesser than sqrt(n)
  * For a number n, if d is a divisor, then n/d is also a divisor.

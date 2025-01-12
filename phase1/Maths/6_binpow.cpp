@@ -1,46 +1,77 @@
 #include <iostream>
 using namespace std;
-using lli = long long;
+using ll = long long;
 
 // Find a^b % p
 // Time: O(logN)
-lli binpow(lli a, lli b, lli mod) {
-    if (b == 0)
+ll binpow2(ll a, ll n, ll mod) {
+    if (n == 0)
         return 1;
-    if (b % 2) {
-        return a * binpow(a, b - 1, mod) % mod;
+
+    if (n % 2) {
+        return a * binpow(a, n - 1, mod) % mod;
     } else {
-        lli temp = binpow(a, b / 2, mod);
+        ll temp = binpow(a, n / 2, mod);
         return temp * temp % mod;
     }
 }
+
+// AGAIN!
+ll binpow(ll a, ll n, ll mod) {
+    if(n==0) return 1;
+
+    ll res = binpow(a, n/2, mod);
+    res = (res * res) % mod;
+    if(n%2!=0) {    // jab odd ho toh ek baar aur multiply kar do
+        res = (res * a) % mod;
+    }
+    return res;
+}
+
+ll binpow_iter(ll a, ll n, ll mod) {
+    if(n==0) return 1;
+
+    ll res = 1;
+    while(n>0){
+        // jab odd hai, tabhi multiply karna hai
+        if(n%2!=0)
+            res = (res * a) % mod;
+
+        a = (a * a) % mod;
+        n = n >> 1;  // Same as n = n / 2
+    }
+    return res;
+}
+
+
+
 
 // QUESTION: Compute the expression ((a*b - c^d) / e mod p)
 
 int main() {
     // Input values
-    lli a, b, c, d, e;
+    ll a, b, c, d, e;
     cin >> a >> b >> c >> d >> e;
 
     // Apply modulo to avoid overflow
-    lli mod = 1000000007; // or any other modulo value
+    ll mod = 1000000007; // or any other modulo value
     a %= mod;
     b %= mod;
     c %= mod;
     e %= mod;
 
     // Compute intermediate results
-    lli x1 = (a * b) % mod;
-    lli x2 = binpow(c, d, mod);
+    ll x1 = (a * b) % mod;
+    ll x2 = binpow(c, d, mod);
 
     // Calculate expression: (a * b - c^d) % mod
-    lli x3 = (x1 - x2 + mod) % mod;
+    ll x3 = (x1 - x2 + mod) % mod;
 
     // Calculate modular inverse of e: e^(mod-2) % mod
-    lli x4 = binpow(e, mod - 2, mod);
+    ll x4 = binpow(e, mod - 2, mod);
 
     // Final result: ((a * b - c^d) / e) % mod
-    lli ans = (x3 * x4) % mod;
+    ll ans = (x3 * x4) % mod;
 
     // Ensure the result is non-negative
     ans = (ans + mod) % mod;

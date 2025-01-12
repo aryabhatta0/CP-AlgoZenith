@@ -13,66 +13,59 @@ For that, you'll need the operator mentioned as say &( )
 
 class Solution {
 public:
-    bool parseBoolExpr(string expression) {
-        // using stack to keep track of expression/operators
-        // we'll evaluate the expression whenever we encounter ')'
-        stack<char> stk;
-        
-        for (char c : expression) {
-            if (c == ',' || c == '(') {
-                continue;
+    bool isOp(char ch) {
+        return ch=='!' || ch=='&' || ch=='|';
+    }
+    bool isBool(char ch) {
+        return ch=='t' || ch=='f';
+    }
+    char boolToString(bool a){
+        return (a ? 't' : 'f');
+    }
+    char evaluate(vector<bool> vec, char op) {
+        int n=vec.size();
+        if(op=='!') return boolToString(!vec[0]);
+        else if(op=='&') {
+            bool res=vec[0];
+            for(int i=1; i<n; i++) {
+                res &= vec[i];
             }
-            if (c == ')') {
-                vector<char> subExpr;
-                
-                // Pop the sub-expression until we hit an operator
-                while (stk.top() != '!' && stk.top() != '&' && stk.top() != '|') {
-                    subExpr.push_back(stk.top());
-                    stk.pop();
+            return boolToString(res);
+        } else {
+            bool res=vec[0];
+            for(int i=1; i<n; i++) {
+                res |= vec[i];
+            }
+            return boolToString(res);
+        }
+    }
+
+    bool parseBoolExpr(string expression) {
+        stack<char> st;
+        for(auto it: expression) {
+            if(it==')') {
+                vector<bool> vec;
+                while(st.top()!='(') {
+                    auto ch = st.top();
+                    if(isBool(ch)) {
+                        vec.push_back((ch=='t' ? true : false));
+                    }
+                    st.pop();
                 }
                 
-                // The operator will be the next element on the stack
-                char op = stk.top();
-                stk.pop();
-                
-                // Evaluate the expression based on the operator
-                char result;
-                if (op == '!') {
-                    // NOT operator: only one element in subExpr
-                    result = (subExpr[0] == 't') ? 'f' : 't';
-                } else if (op == '&') {
-                    // AND operator: result is 't' only if all subExpr elements are 't'
-                    result = 't';
-                    for (char e : subExpr) {
-                        if (e == 'f') {
-                            result = 'f';
-                            break;
-                        }
-                    }
-                } else if (op == '|') {
-                    // OR operator: result is 't' if any subExpr element is 't'
-                    result = 'f';
-                    for (char e : subExpr) {
-                        if (e == 't') {
-                            result = 't';
-                            break;
-                        }
-                    }
-                }
-                
-                // Push the result of the sub-expression back to the stack
-                stk.push(result);
-            } else {
-                // For 't', 'f', and operators ('!', '&', '|'), just push them to the stack
-                stk.push(c);
+                st.pop();
+                char op = st.top();
+                st.pop();
+
+                st.push(evaluate(vec, op));
+            } else if(it!=','){
+                st.push(it);
             }
         }
-        
-        // The result of the expression is now on top of the stack
-        return stk.top() == 't';
+
+        return (st.top()=='t' ? true : false);
     }
 };
-
 // int32_t main() {
 //     Solution s;
 //     vector<int> nums = {2,1,3,4};

@@ -6,6 +6,12 @@ using namespace std;
 #define ll long long
 #define mod 1000000007
 
+/** Intuition:
+ * Observe that 'ans' can only inc by 1 at a time
+ * Think if 'B' is the (prev) optimal ans, when can 'B+1' be the answer as well ?
+ * You'll need to store all the books with pages >= 'B+1', if it's count is > 'B' , 'B+1' is the ans.
+ * How will you store such books?
+ */
 // O(nlogn)
 void solve(){
     int n; cin>>n;
@@ -39,6 +45,7 @@ void solve2(){
     vector<int> arr(n);
     for(int i=0; i<n; i++) cin>>arr[i];
 
+    // freq[i] = cnt of books with i pages
     int freq[100001] = {};
     int ans = 0;
     int cnt = 0;    // count of books having pages > ans
@@ -49,6 +56,7 @@ void solve2(){
         if(cnt>ans) {
             ans++;
             // remove books with pages <= ans
+            // cnt was the num books > ans
             cnt-=freq[ans];
         }
         cout << ans << " ";
