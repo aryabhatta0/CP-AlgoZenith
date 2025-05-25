@@ -30,3 +30,9 @@ A curated collection of AZ problems I’ve solved to keep track of what I’ve l
 *   [quest2_CPTTRN](/quest2_CPTTRN/): Solutions for CPTTRN problems
 *   [SegmentTree](/SegmentTree/): Segment Trees.
 *   [Strings](/Strings/): KMP + Tries.
+
+
+## Short Notes:
+
+- [Graphs](/phase3_Graphs/Graphs_shortNotes4revision.md)
+- [Fundamental Maths](/phase1/Maths/FundamentalMaths_ShortNotes4revision.md)
